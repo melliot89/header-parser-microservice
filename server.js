@@ -6,7 +6,7 @@ app.use(useragent.express());
 app.get('/', function (req, res) {
   res.send(JSON.stringify({
     software: req.useragent.os + '; ' + req.useragent.platform,
-    ip: req.ip,
+    ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     language: req.headers["accept-language"].split(',')[0],
   }));
 });
